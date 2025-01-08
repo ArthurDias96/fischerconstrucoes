@@ -13,3 +13,7 @@ HTML
 CSS
 JAVASCRIPT
 </h5>
+
+<h5 align="left">
+OBS: O projeto foi interrompido devido ao encerramento das operações da empresa.
+</h5>
