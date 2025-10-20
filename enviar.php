@@ -1,46 +1,62 @@
 <?php
-date_defaut_timezone_set('America/Sao_Paulo');
+$nome = isset($_POST['nome']) ? trim($_POST['nome']) : '';
+$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+$mensagem = isset($_POST['mensagem']) ? trim($_POST['mensagem']) : '';
+$assunto = 'Contato do site';
 
-require_once('src/PHPMailer.php');
-require_once('src/SMTP.php');
-require_once('src/Exception.php');
-
-use PHPMailer\PHPMailer;
-use PHPMailer\SMTP;
-use PHPMailer\Exception;
-
-if((isset($_POST['email']) && !empty(trim($_POST['email']))) && (isset($_POST['mensagem']) && !empty(trim($_POST['mensagem'])))){
-	
-	$nome = !empty($_POST['nome']) ? $_POST['nome'] : 'Não informado';
-	$email = !empty($_POST['email']); 
-	$assunto = !empty($_POST['assunto']); ? utf8_decode($_POST['assunto']) : 'Não informado';
-	$mensagem = !empty($_POST['mensagem']);
-	$data = date('d/m/Y H:i:s');
-
-	$mail = new PHPMailer();
-	$mail->isSMTP();
-	$mail->Host = 'smtp.gmail.com';
-	$SMTPAuth = true;
-	$mail->Username = 'seuemail@gmail.com';
-	$mail->Passaword = 'senhadoemail';
-	$mail->Port = 587;
-	$mail->setFrom('seuemail@gmail.com');
-	$mail->addAddress('endereco1@provedor.com.br');
-	$mail->isHTML(true);
-	$mail->Subject = $assunto;
-	$mail->body = "Nome: {$nome}<br>
-	 			   Email: {$email}<br>
-				   Mensagem: {$mensage}<br>
-				   Data/hora: {$data}";
-
-if($mail->send()) {
-	echo'Email enviado com sucesso.';
-} else{
-	echo'Email nao enviado.';
+if ($email === '' || $mensagem === '') {
+    http_response_code(400);
+    echo 'Preencha e-mail e mensagem.';
+    exit;
 }
-} else{
-	echo 'Não enviado: informar o email e a mensagem.';
 
+$cfg = @include __DIR__ . '/config.php';
+if (!is_array($cfg)) { $cfg = []; }
+$to = !empty($cfg['SMTP_TO']) ? $cfg['SMTP_TO'] : (getenv('SMTP_TO') ?: 'fsgranjagaucho@gmail.com');
+
+if (class_exists('PHPMailer\\PHPMailer\\PHPMailer')) {
+    $host = !empty($cfg['SMTP_HOST']) ? $cfg['SMTP_HOST'] : (getenv('SMTP_HOST') ?: 'smtp.gmail.com');
+    $user = !empty($cfg['SMTP_USER']) ? $cfg['SMTP_USER'] : (getenv('SMTP_USER') ?: '');
+    $pass = !empty($cfg['SMTP_PASS']) ? $cfg['SMTP_PASS'] : (getenv('SMTP_PASS') ?: '');
+    $port = (int)(!empty($cfg['SMTP_PORT']) ? $cfg['SMTP_PORT'] : (getenv('SMTP_PORT') ?: 587));
+    $secure = !empty($cfg['SMTP_SECURE']) ? $cfg['SMTP_SECURE'] : (getenv('SMTP_SECURE') ?: 'tls');
+
+    $mailer = new PHPMailer\\PHPMailer\\PHPMailer(true);
+    try {
+        $mailer->isSMTP();
+        $mailer->Host = $host;
+        $mailer->SMTPAuth = true;
+        $mailer->Username = $user;
+        $mailer->Password = $pass;
+        $mailer->Port = $port;
+        $mailer->SMTPSecure = $secure;
+        $mailer->setFrom($email !== '' ? $email : $user);
+        $mailer->addAddress($to);
+        $mailer->isHTML(true);
+        $mailer->Subject = $assunto;
+        $mailer->Body = '<strong>Nome:</strong> ' . ($nome !== '' ? htmlspecialchars($nome) : 'Não informado') . '<br>' .
+                        '<strong>Email:</strong> ' . htmlspecialchars($email) . '<br>' .
+                        '<strong>Mensagem:</strong><br>' . nl2br(htmlspecialchars($mensagem));
+        $mailer->send();
+        echo 'Email enviado com sucesso.';
+        exit;
+    } catch (Exception $e) {
+    }
+}
+
+$headers = "MIME-Version: 1.0\r\n" .
+           "Content-type: text/html; charset=UTF-8\r\n" .
+           "From: {$email}\r\n" .
+           "Reply-To: {$email}\r\n";
+$body = "<strong>Nome:</strong> " . ($nome !== '' ? htmlspecialchars($nome) : 'Não informado') . "<br>" .
+        "<strong>Email:</strong> " . htmlspecialchars($email) . "<br>" .
+        "<strong>Mensagem:</strong><br>" . nl2br(htmlspecialchars($mensagem));
+$sent = @mail($to, $assunto, $body, $headers);
+if ($sent) {
+    echo 'Email enviado com sucesso.';
+} else {
+    http_response_code(500);
+    echo 'Email não enviado.';
 }
 
 

@@ -1,32 +1,18 @@
 <html lang="pt-br">
 <head>
-    <title>Fischer Construções</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://www.flaticon.com/br/icones-gratis/redes-sociais">
-    <link rel="stylesheet"href="style.css">
-    <link rel="sortcut icon"href="01.png">
-    <link href="ContatoEstilo.css" rel="stylesheet" media="all" />
-    <script src="JavaScript.js"></script>
-    <link rel="stylesheet" href="components/normalize-css/normalize.css">
-    <link rel="stylesheet" href="gallery-css-master/dist/gallery.css">
-    <link rel="stylesheet" href="gallery-css-master/dist/gallery.theme.css">
-    <script src="components/html5shiv/dist/html5shiv.js"></script>
-    <script src="components/prefix-free/prefixfree.min.js"></script>
-    <meta http-equiv="Content-Type" content="text/html;">
-    <link rel="stylesheet" href="class.css" type="text/css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<a href="https://wa.me/55(aqui seu numero com ddd | tudo junto)?text=Adorei%20seu%20artigo" style="position:fixed;width:60px;height:60px;bottom:40px;right:40px;background-color:#25d366;color:#FFF;border-radius:50px;text-align:center;font-size:30px;box-shadow: 1px 1px 2px #888;
-  z-index:1000;" target="_blank">
-<i style="margin-top:16px" class="fa fa-whatsapp"></i>
-</a>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fischer Construções - Contato</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/01.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="JavaScript.js" defer></script>
 </head>
     <!--Logo e menu-->
- <nav>     
+ <nav aria-label="Menu principal">     
             <div class="Logo">
-                <a href="index.html"><img src="02.png"></a>
+                <a href="index.html"><img src="img/logo.png" alt="Fischer Construções"></a>
             </div>
-            
                <ul id="container">
                 <li><a href="index.html"><p>Home</p></a>
                 </li>
@@ -38,38 +24,19 @@
                 </li>
                 </ul></nav>
                         <div class="img_menu"></div>
-<!--Slides-->
-<div class="gallery autoplay items-3">
-            <div id="item-1" class="control-operator"></div>
-            <div id="item-2" class="control-operator"></div>
-            <div id="item-3" class="control-operator"></div>
-            <figure class="item">
-                    <img src="03.jpg">
-            </figure>
-            <figure class="item">
-                    <img src="04.jpg">
-            </figure>
-            <figure class="item">
-                    <img src="05.jpg">
-            </figure>
-            <div class="controls">
-                <a href="#item-1" class="control-button">.</a>
-                <a href="#item-2" class="control-button">.</a>
-                <a href="#item-3" class="control-button">.</a>
-            </div>
-        </div>
+<!--Contato-->
 <!--formulario do contato-->
        <div class="ht10">
         <h3>CONTATO</h3>
     </div> 
     <div class="css985">
-        <img src="p10.png"></div>
+        <img src="img/p10.png" alt="Divisor" loading="lazy"></div>
     </div>
     <div class="Endereço">
         <h5>Endereço</h5>
     </div>
     <div class="ico1">
-        <img src="ico1.png">
+        <img src="img/ico1.png" alt="Ícone endereço" loading="lazy">
 </div>
     <div class="K10">
         <h6>R. das Hortências, 1232 - St. Comercial,</h6>
@@ -81,7 +48,7 @@
         <h5>Carreira</h5>
     </div>
     <div class="ico2">
-        <img src="ico2.png">
+        <img src="img/ico2.png" alt="Ícone carreira" loading="lazy">
 </div>
     <div class="K10">
         <h6>Para trabalhar conosco, por favor envie o </h6>
@@ -93,35 +60,35 @@
         <h5>Redes Sociais</h5>
     </div>
         <div class="Face">
-            <a href="https://www.facebook.com/ffischerconstrucoes"><img src="icon_face.png">
+            <a href="https://www.facebook.com/ffischerconstrucoes"><img src="img/icon_face.png" alt="Facebook" loading="lazy"></a>
         <div class="Insta">
-            <a href="https://www.instagram.com/fischer_construcoes/"><img src="icon_insta.png">
+            <a href="https://www.instagram.com/fischer_construcoes/"><img src="img/icon_insta.png" alt="Instagram" loading="lazy"></a>
         </div>
         <div class="Link">
-            <a href=""><img src="icon_linke.png">
+            <a href=""><img src="img/icon_linke.png" alt="LinkedIn" loading="lazy"></a>
         </div>
   
-    <div class="co89">
+        <div class="co89">
         <h5>Contato</h5>
         <div class="ico3">
-            <img src="ico3.png">
+            <img src="img/ico3.png" alt="Ícone contato" loading="lazy">
         </div>
     </div>
    </div>
 <!--formulario--->
     <div class="formulario">
-    <form method="post" onsubmit="validaForm(); return false;" class="form">
+    <form id="contact-form" class="form" method="post" action="enviar.php">
     <p class="name">
-        <label for="name">Nome</label>
-        <input type="text" placeholder="Seu Nome" />
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" placeholder="Seu Nome" />
     </p>
     <p class="email">
         <label for="email">E-mail</label>
-        <input type="text" placeholder="mail@exemplo.com.br" />
+        <input id="email" name="email" type="email" placeholder="mail@exemplo.com.br" />
     </p>
     <p class="text">
         <label for="mensagem">Mensagem</label>
-        <textarea placeholder="Escreva sua mensagem" /></textarea>
+        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem"></textarea>
     </p>
     <p class="submit">
         <input type="submit" value="Enviar" />
@@ -129,30 +96,7 @@
     </form>
       </div>
 
-      <script type="text/javascript">
-        function validaForm()
-        {
-            erro = false;
-            if($('#nome').val() == '')
-            {
-                alert('Você precisa preencher o campo Nome');erro = true;
-            }
-            if($('#email').val() == '' && !erro)
-            {
-                alert('Você precisa preencher o campo E-mail');erro = true;
-            }
-            if($('#mensagem').val() == '' && !erro)
-            {
-                alert('Você precisa preencher o campo Mensagem');erro = true;
-            }
-            
-            //se nao tiver erros
-            if(!erro)
-            {
-                $('#formulario_contato').submit();
-            }
-        }
-    </script>
+    
 
 <!--localização-->
 <div class="maps">
@@ -161,8 +105,9 @@
 <div class="b01">
 </div>
 <!--Rodape-->
-   <div class="rodape">
-    </div>
-    <script src="script.js"></script>
+   <div class="rodape"></div>
+    <a href="https://wa.me/55?text=Olá" style="position:fixed;width:60px;height:60px;bottom:40px;right:40px;background-color:#25d366;color:#FFF;border-radius:50px;text-align:center;font-size:30px;box-shadow: 1px 1px 2px #888; z-index:1000;" target="_blank" rel="noopener">
+        <i style="margin-top:16px" class="fa fa-whatsapp"></i>
+    </a>
 </body>
 </html>
